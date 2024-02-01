@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Todo-Nado | 투두네이도</title>
+  <link rel="stylesheet" href="./style/style.css">
+</head>
+
+<body>
+  <div class="container">
+    <div> <!-- 왼쪽 -->
+      <div> <!-- 왼쪽 1st-->
+        <div> <!-- 왼쪽 1st 헤드 -->
+          <span>오늘 할 일</span> 
+          <span class="material-symbols-outlined">
+            arrow_drop_down
+            </span>
+        </div> 
+        <div> <!-- 왼쪽 1st 리스트 -->
+          <ul>
+            <li>저녁먹기</li>
+            <li>아침먹기</li>
+          </ul>
+        </div>
+        <div> <!-- 왼쪽 1st 입력-->
+          <input type="text">
+          <button>저장</button>
+        </div>
+      </div>  
+      <div>  <!-- 왼쪽 2nd-->
+        <span>리액트 공부</span>
+        <span class="material-symbols-outlined">
+          minimize
+          </span>
+      </div> 
+      <div> <!-- 왼쪽 3rd-->
+        <span>리액트 공부</span>
+        <span class="material-symbols-outlined">
+          minimize
+          </span>
+      </div>  
+  
+   
+    </div>
+    <div> <!-- 오른쪽 -->
+      <div> <!-- 오른쪽 첫번째-->
+        <p>홍길동</p>
+        <img src="" alt="프로필사진">
+        <span>공유 투두 코드</span>
+        <button>공유</button>
+      </div>
+      <div> <!-- 오른쪽 두번째-->
+        <div> <!-- 오른쪽 두번째 1st-->
+          <textarea name="" id="" cols="30" rows="10"></textarea>
+        </div>
+        <div> <!-- 오른쪽 두번째 2nd-->
+        <input type="text">
+        <button>전송</button>
+        </div>
+      </div> 
+    </div>
+  </div>
+
+
+  <script type="module" src="./script/counter.js"></script>
+  <script type="module" src="./script/firebase.js"></script>
+  <script type="module" src="./script/app.js"></script>
+</body>
+
+</html>
