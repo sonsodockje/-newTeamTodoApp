@@ -6,6 +6,7 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
   sendEmailVerification,
+  updateProfile,
 } from "firebase/auth";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 
@@ -41,15 +42,26 @@ export async function readDb() {
 // 회원가입하는 코드
 export function singup() {
   const auth = getAuth();
-  const email = "lit0goguma@gmail.com";
-  const password = "0000";
+  const displayName = "홍길동dkdkdkdkdkdkdkdkd";
+  const email = "Tesddfgdfgfdgfghghjhghjghjst1@gmail.com";
+  const password = "test0000";
 
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in
       const user = userCredential.user;
-      console.log("성공");
-      console.log(user);
+      console.log("회원가입 성공 : ", user);
+
+      // 이메일, 비밀번호 외의 사용자 정보는 여기서 넣으세요.
+      updateProfile(auth.currentUser, {
+        displayName: displayName,
+      })
+        .then(() => {
+          console.log("이름넣기 완", auth.currentUser);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -61,14 +73,13 @@ export function singup() {
 // 로그인 하는 코드
 export function login() {
   const auth = getAuth();
-  const email = "thisisid@gmail.com";
-  const password = "thisispw";
+  const email = "Tesddfgdfgfdgfghghjhghjghjst1@gmail.com";
+  const password = "test0000";
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in
       const user = userCredential.user;
-      console.log("로그인됨");
-      console.log(user);
+      console.log("로그인됨 : ", user);
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -85,8 +96,7 @@ export function userState() {
     if (user) {
       // User is signed in, see docs for a list of available properties
       // https://firebase.google.com/docs/reference/js/auth.user
-      const uid = user.uid;
-      console.log("로그인 중인 상태 : ", uid);
+      console.log("로그인 중인 상태 : ", user);
     } else {
       // User is signed out
       // ...
