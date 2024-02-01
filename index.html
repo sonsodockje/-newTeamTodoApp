@@ -7,12 +7,80 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Todo-Nado | 투두네이도</title>
   <link rel="stylesheet" href="./style/style.css">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 </head>
 
 <body>
   <div class="container">
-    test
+
+    <!-- 레이아웃의 왼쪽 -->
+    <div class="todos-wrap">
+      <!-- 하나의 주제를 가진 투두 카드 -->
+      <div class="todo-card-wrap">
+        <div class="todo-card-header">
+          <span>오늘 할 일</span>
+          <button class="opened_btn">
+            <span class="material-symbols-outlined">
+              menu
+            </span>
+          </button>
+        </div>
+        <div class="todo-card-todolist">
+          <ul>
+            <li>
+              <button class="todo-card-todolist-btn false">
+                <span class="material-symbols-outlined">
+                  radio_button_unchecked
+                </span>
+              </button>
+              <span>저녁 먹기</span>
+            </li>
+            <li>
+              <button class="todo-card-todolist-btn true">
+                <span class="material-symbols-outlined">
+                  expand_circle_down
+                </span>
+              </button>
+              <span>아침 먹기</span>
+            </li>
+          </ul>
+        </div>
+        <div class="todo-card-input-area">
+          <input type="text" id="todo_input">
+          <button class="todo_send" id="todo_send">저장</button>
+        </div>
+      </div>
+      <!-- 하나의 주제를 가진 투두 카드, 인데 접힌 -->
+      <div class="todo-card-header hidden">
+        <span>리액트 공부</span>
+        <button class="open_btn">
+          <span class="material-symbols-outlined">
+            arrow_drop_down
+          </span>
+        </button>
+      </div>
+    </div>
   </div>
+
+  <!-- 레이아웃의 오른쪽 -->
+  <div class="user-wrap">
+    <div class="user-name">
+      <p>홍길동</p>
+    </div>
+    <div class="user-profile-img">
+      <img src="" alt="프로필사진">
+    </div>
+    <div class="user-buttons">
+      <button id="user-info-edit-btn">
+        정보수정
+      </button>
+      <span class="material-symbols-outlined">
+        logout
+      </span>
+    </div>
+  </div>
+
 
 
   <script type="module" src="./script/counter.js"></script>
