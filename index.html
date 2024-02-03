@@ -19,7 +19,8 @@
       <!-- 하나의 주제를 가진 투두 카드 -->
       <div class="todo-card-wrap">
         <div class="todo-card-header">
-          <span>오늘 할 일</span>
+<!-- 클래스명 추가 -->
+          <span class="todo-card-title">오늘 할 일</span>
           <button class="opened_btn">
             <span class="material-symbols-outlined">
               menu
@@ -52,8 +53,10 @@
         </div>
       </div>
       <!-- 하나의 주제를 가진 투두 카드, 인데 접힌 -->
-      <div class="todo-card-header hidden">
-        <span>리액트 공부</span>
+<!-- 모양지정 때문에 클래스명을 바꿔봅니다.!  -->
+      <div class="todo-card-header-close hidden">
+        <!-- 클래스 명 추가 -->
+        <span class="todo-card-title">리액트 공부</span>
         <button class="open_btn">
           <span class="material-symbols-outlined">
             arrow_drop_down
@@ -61,47 +64,49 @@
         </button>
       </div>
     </div>
-  </div>
+<!-- </div> 여기에 있던 닫는 디브를 로그아웃 상태시 보여질 화면밑으로 보냄-->
 
-  <!-- 레이아웃의 오른쪽 -->
-  <!-- 로그인 상태시 보여질 화면 -->
-  <div class="user-wrap-login none">
-    <div class="user-name">
-      <p>홍길동</p>
+    <!-- 레이아웃의 오른쪽 -->
+    <!-- 로그인 상태시 보여질 화면 -->
+    <div class="user-wrap-login none">
+      <div class="user-name">
+        <p>홍길동</p>
+      </div>
+      <div class="user-profile-img">
+        <img src="" alt="프로필사진">
+      </div>
+      <div class="user-buttons">
+<!-- class 추가 -->
+        <button class="user-info-edit-btn" id="user-info-edit-btn">
+          정보수정
+        </button>
+        <span class="material-symbols-outlined">
+          logout
+        </span>
+      </div>
+    </div>  
+
+    <!-- 로그아웃 상태시 보여질 화면 -->
+    <div class="user-wrap-logout">
+      <img class="logo" src="./img/logo.png" alt="로고">
+      <div class="user-buttons">
+        <button class="open_login_md" id="open_login_md">로그인</button>
+        <button class="open_signup_md" id="open_signup_md">회원가입</button>
+      </div>
     </div>
-    <div class="user-profile-img">
-      <img src="" alt="프로필사진">
-    </div>
-    <div class="user-buttons">
-      <button id="user-info-edit-btn">
-        정보수정
-      </button>
-      <span class="material-symbols-outlined">
-        logout
-      </span>
-    </div>
-  </div>
 
-  <!-- 로그아웃 상태시 보여질 화면 -->
-  <div class="user-wrap-logout">
-    <img src="" alt="로고">
-    <div class="user-buttons">
-      <button id="open_login_md">로그인</button>
-      <button id="open_signup_md">회원가입</button>
-    </div>
-  </div>
+<!-- 여기로 옮겼어요 67번째줄의 </div> -->
+  </div> 
 
-
-
-  <div class="login-wrap none">
+  <div class="login-wrap none ">
     <div class="login-wrap-header">
       <h1>ToDoNado</h1>
-      <H3>로그인</H3>
+      <p>로그인</p>
     </div>
     <div class="login-wrap-input-area">
       <input type="email" placeholder="email" id="login_email">
       <input type="password" placeholder="password" id="login_pw">
-      <button id="login_btn">로그인</button>
+      <button class="login_btn" id="login_btn">로그인</button>
     </div>
     <div class="login-wrap-footer">
       <p>아이디찾기</p>
@@ -114,13 +119,13 @@
   <div class="signup-wrap none">
     <div class="signup-wrap-header">
       <h1>ToDoNado</h1>
-      <H3>회원가입</H3>
+      <p>회원가입</p>
     </div>
     <div class="signup-wrap-input-area">
       <input type="text" id="signup_name" placeholder="이름">
       <input type="email" id="signup_email" placeholder="email">
       <input type="password" id="signup_pw" placeholder="password">
-      <button id="signup_btn">회원가입</button>
+      <button class="signup_btn" id="signup_btn">회원가입</button>
     </div>
   </div>
 
