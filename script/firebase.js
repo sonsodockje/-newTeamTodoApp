@@ -8,7 +8,15 @@ import {
   sendEmailVerification,
   updateProfile,
 } from "firebase/auth";
-import { getFirestore, collection, addDoc } from "firebase/firestore";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  setDoc,
+  doc,
+  getDoc,
+  getDocs,
+} from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBquOi8RjipStQUXrQiKAxo1kfhNELRSQo",
@@ -39,20 +47,40 @@ export async function readDb() {
   }
 }
 
+// 특정 "문서" 가져오는 코드
+async function getDocument(uid) {
+  const docRef = doc(db, "todos", uid);
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) {
+    console.log("Document data:", docSnap.data());
+    /// 하위 컬렉션의 모든 문서 가져오기
+    // 여기를 반복문으로 돌려야됨.
+    const querySnapshot = await getDocs(
+      collection(db, "todos", uid, "오늘 할 일")
+    );
+    querySnapshot.forEach((doc) => {
+      console.log(doc.id, " => ", doc.data());
+    });
+  } else {
+    console.log("No such document!");
+  }
+}
+getDocument("EivH5GMe2APglKbS0V1AXNRV4Kv1");
 // 회원가입하는 코드
 export function singup() {
   const auth = getAuth();
-  const displayName = "홍길동dkdkdkdkdkdkdkdkd";
-  const email = "Tesddfgdfgfdgfghghjhghjghjst1@gmail.com";
+  const displayName = "홍길동3";
+  const email = "Test412455@gmail.com";
   const password = "test0000";
 
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      // Signed in
+      // 회원가입을 성공하면 아래를 합니다.
       const user = userCredential.user;
       console.log("회원가입 성공 : ", user);
 
-      // 이메일, 비밀번호 외의 사용자 정보는 여기서 넣으세요.
+      // 유저의 프로필 정보를 수정합니다.
       updateProfile(auth.currentUser, {
         displayName: displayName,
       })
@@ -62,12 +90,41 @@ export function singup() {
         .catch((error) => {
           console.log(error);
         });
+
+      // 유저의 정보를 파이어베이스 데이터 베이스에 저장합니다.
+      uploadUserInfo(displayName, email, user.uid);
+      uploadUserTodo(user.uid);
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
       console.log(errorCode, errorMessage);
     });
+}
+
+// 회원가입시 사용자 정보 db 에 저장
+async function uploadUserInfo(displayName, email, uid) {
+  try {
+    const docRef = await addDoc(collection(db, "users"), {
+      displayName: displayName,
+      email: email,
+      uid: uid,
+      code: [],
+    });
+    console.log("Document written with ID: ", docRef.id);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+}
+// 회원가입시 기본 필드 생성
+async function uploadUserTodo(uid) {
+  const userDocRef = doc(db, "todos", uid);
+  await setDoc(userDocRef, {
+    topics: ["오늘 할 일"],
+  });
+  await setDoc(userDocRef, {
+    test: "test",
+  });
 }
 
 // 로그인 하는 코드
