@@ -28,24 +28,10 @@ const firebaseConfig = {
   measurementId: "G-KQK2SD3VXF",
 };
 
+// 파이어 베이스 초기화
 const app = initializeApp(firebaseConfig);
+// 디비 불러옴
 const db = getFirestore(app);
-
-userState();
-
-// db에 데이터 쓰는 샘플코드
-export async function readDb() {
-  try {
-    const docRef = await addDoc(collection(db, "users"), {
-      first: "Ada",
-      last: "Lovelace",
-      born: 1815,
-    });
-    console.log("Document written with ID: ", docRef.id);
-  } catch (e) {
-    console.error("Error adding document: ", e);
-  }
-}
 
 // 특정 "문서" 가져오는 코드
 async function getDocument(uid) {
@@ -66,7 +52,11 @@ async function getDocument(uid) {
     console.log("No such document!");
   }
 }
+
+// 로그인한 회원의 유아이디를 매개변수로 전달하면
+// 문서를 가져올때 유아이디를 검색하여 사용자의 투두만 가져오게 됨.
 getDocument("EivH5GMe2APglKbS0V1AXNRV4Kv1");
+
 // 회원가입하는 코드
 export function singup() {
   const auth = getAuth();
@@ -93,6 +83,7 @@ export function singup() {
 
       // 유저의 정보를 파이어베이스 데이터 베이스에 저장합니다.
       uploadUserInfo(displayName, email, user.uid);
+      // 기본 할일 항목을 만듭니다.
       uploadUserTodo(user.uid);
     })
     .catch((error) => {
@@ -116,6 +107,7 @@ async function uploadUserInfo(displayName, email, uid) {
     console.error("Error adding document: ", e);
   }
 }
+
 // 회원가입시 기본 필드 생성
 async function uploadUserTodo(uid) {
   const userDocRef = doc(db, "todos", uid);
