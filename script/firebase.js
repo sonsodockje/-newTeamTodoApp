@@ -56,20 +56,20 @@ async function getDocument(uid) {
                       </div>`;
 
         todoWrap.innerHTML += 템플릿;
-      }
-    });
 
-    /// 하위 컬렉션의 모든 문서 가져오기
-    // 여기를 반복문으로 돌려야됨.
-    const querySnapshot = await getDocs(
-      collection(db, "todos", uid, "오늘 할 일")
-    );
-    querySnapshot.forEach((doc) => {
-      console.log(doc.id, " => ", doc.data());
+        getTopicTodos(uid, item);
+      }
     });
   } else {
     console.log("No such document!");
   }
+}
+
+async function getTopicTodos(uid, item) {
+  const querySnapshot = await getDocs(collection(db, "todos", uid, item));
+  querySnapshot.forEach((doc) => {
+    console.log(doc.id, " 주제는 ", item, "=> ", doc.data());
+  });
 }
 
 // 로그인한 회원의 유아이디를 매개변수로 전달하면
