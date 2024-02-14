@@ -14,17 +14,39 @@ openLoginMd.addEventListener("click", () => {
   const login_email_input = document.querySelector("#login_email");
   const login_pw_input = document.querySelector("#login_pw");
   const login_btn = document.querySelector("#login_btn");
-  const exit_btn = document.querySelector("#exit");
+  const exit_btn = document.querySelector("#modal_exit");
+  const signup_btn = document.querySelector("#to_signup_from_modal");
 
-  exit_btn.addEventListener("click", ()=>{
+  signup_btn.addEventListener("click", () => {
     loginMd.classList.add("none");
-  })
+    openSignupModal();
+  });
+
+  exit_btn.addEventListener("click", () => {
+    loginMd.classList.add("none");
+  });
 
   login_btn.addEventListener("click", () => {
     login(login_email_input.value, login_pw_input.value);
   });
-
-  // 나가기 버튼
 });
+
+//  회원가입 관련 로직 --------------------------------------------------------
+
+const openSignupMd = document.getElementById("open_signup_md");
+const signupMd = document.querySelector(".signup-wrap");
+
+function openSignupModal() {
+  signupMd.classList.remove("none");
+
+  const exit_btn = document.querySelector("#signup_modal_exit");
+
+  exit_btn.addEventListener("click", () => {
+    console.log("qkqh");
+    signupMd.classList.add("none");
+  });
+}
+
+openSignupMd.addEventListener("click", openSignupModal);
 
 //  회원가입 관련 로직 --------------------------------------------------------

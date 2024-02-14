@@ -80,8 +80,8 @@ export async function getTopicTodos(uid, item) {
 export function singup() {
   const auth = getAuth();
   const displayName = "홍길동3";
-  const email = "Test412455@gmail.com";
-  const password = "test0000";
+  // const email = "Test412455@gmail.com";
+  // const password = "test0000";
 
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {

@@ -219,7 +219,7 @@
 
   <!-- 로그인창 -->
   <div class="login-wrap none">
-    <button class="exit" id="exit">
+    <button class="exit" id="modal_exit">
       <span class="material-symbols-outlined">
         close
       </span>
@@ -236,14 +236,14 @@
     <div class="login-wrap-footer">
       <p>아이디찾기</p>
       <p>비밀번호 찾기</p>
-      <p>회원가입</p>
+      <p id="to_signup_from_modal">회원가입</p>
     </div>
   </div>
 
 
   <!-- 회원가입창 -->
   <div class="signup-wrap none">
-    <button class="exit">
+    <button class="exit" id="signup_modal_exit">
       <span id="exit" class="material-symbols-outlined">
         close
       </span>
@@ -264,7 +264,7 @@
 
   </div>
 
-  <script type="module" src="./script/login-out.js"></script>
+
   <script type="module" src="./script/firebase.js"></script>
   <script type="module" src="./script/app.js"></script>
 </body>
