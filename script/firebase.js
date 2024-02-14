@@ -104,11 +104,12 @@ export async function uploadUserTodo(uid) {
   });
 
   await addDoc(collection(db, "todos", uid, "오늘 할 일"), {
-    sample: "test",
+    text: "오늘의 할 일을 적어주세요.",
   });
 }
 
 // **************************  로그인  ********************************
+
 export function login(email, password) {
   setPersistence(auth, browserLocalPersistence)
     .then(() => {
@@ -141,6 +142,8 @@ export function login(email, password) {
       console.log("로그인 지속성 오류", errorMessage);
     });
 }
+
+// **************************  읽어 오기  ********************************
 
 export function getUserStateAndTodos() {
   const auth = getAuth();
@@ -178,8 +181,8 @@ export async function getDocument(uid) {
                             </ul>
                         </div>
                         <div class="todo-card-input-area">
-                          <input type="text" id="todo_input">
-                          <button class="todo_send" id="${className}-send">저장</button>
+                          <input type="text" id="${className}_todo_input">
+                          <button class="todo_send" id="${className}_send">저장</button>
                         </div>
                       </div>`;
 
@@ -209,6 +212,26 @@ export async function getTopicTodos(uid, item, className) {
     ul.innerHTML += 템플릿;
   });
 }
+
+// **************************  오늘 할 일 쓰기  *************************
+
+// var todo_input = document.querySelector("#오늘할일_todo_input");
+// var todo_input_send = document.querySelector("#오늘할일_send");
+// todo_input_send.addEventListener("click", updateTodo(todo_input.value));
+
+export async function updateTodo(inputText) {
+  const auth = getAuth();
+  console.log(auth);
+  try {
+    await addDoc(collection(db, "todos", auth.uid, "오늘 할 일"), {
+      text: inputText,
+      time: new Date(),
+    });
+  } catch (e) {
+    console.error("☝️ 뭐가 문제야: ", e);
+  }
+}
+// **************************  아래로 기타  ***************************
 
 // 이메일 인증 메일 보내기
 export function emailVerification() {
