@@ -78,14 +78,15 @@ export async function getTopicTodos(uid, item) {
 // 로그인한 회원의 유아이디를 매개변수로 전달하면
 // 문서를 가져올때 유아이디를 검색하여 사용자의 투두만 가져오게 됨.
 
-// 회원가입하는 코드
+// **************************  회원가입  ********************************
+
 export function singup(input_email, input_pw, name) {
   const auth = getAuth();
   const email = input_email;
   const password = input_pw;
   const displayName = name;
   const signupMd = document.querySelector(".signup-wrap");
-  const loginMd = document.querySelector(".login-wrap");
+  const nav_icon = document.querySelector(".icon-bar");
 
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
@@ -94,8 +95,9 @@ export function singup(input_email, input_pw, name) {
       console.log("회원가입 성공 : ", user);
       createModal("회원가입 성공");
 
-      // 모달 숨기고,
+      // 모달 숨기고, 아이콘 보여주고, 회원가입 레이아웃 숨기고,
       signupMd.classList.add("none");
+      nav_icon.classList.remove("none");
 
       // 유저의 프로필 정보를 수정합니다.
       updateProfile(auth.currentUser, {
