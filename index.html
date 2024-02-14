@@ -6,7 +6,7 @@
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Todo-Nado | 투두네이도</title>
-  <link rel="stylesheet" href="./style/style.css">
+  <link rel="stylesheet" href="/style/style.css">
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 </head>
@@ -16,7 +16,7 @@
     <!-- 모달추가하기 위한 나브바 -->
     <nav class="nav-bar">
       <p>ToDoNado</p>
-<!-- 얘네 로그인 하면 보여져야함 -->
+      <!-- 로그인후 : 우측 상단 아이콘 모음 -->
       <div class="icon-bar none">
         <span class="material-symbols-outlined">
           add
@@ -24,17 +24,17 @@
         <span class="material-symbols-outlined">
           person
         </span>
-        <span class="material-symbols-outlined">
+        <span class="material-symbols-outlined" id="nav_logout_icon">
           logout
         </span>
       </div>
     </nav>
-    
+
     <div class="main-wrap">
       <!-- 레이아웃의 왼쪽 -->
       <div class="todos-wrap">
         <!-- 하나의 주제를 가진 투두 카드 -->
-        <div class="todo-card-wrap test">
+        <div class="todo-card-wrap default-card">
           <div class="todo-card-header">
             <!-- 클래스명 추가 -->
             <span class="todo-card-title">오늘 할 일</span>
@@ -85,7 +85,7 @@
 
       <!-- 레이아웃의 오른쪽 -->
       <!-- 로그인 상태시 보여질 화면 -->
-<!-- 얘네는 모달로 -->
+      <!-- 얘네는 모달로 -->
 
       <!-- 프로필 -->
       <div class="user-wrap-login none">
@@ -129,17 +129,17 @@
         </div>
         <p class="edit-profile-email">hong@gmail.com</p>
         <div class="edit-name">
-<!-- 이름표시 -->
+          <!-- 이름표시 -->
           <input type="text" id="edit_name_input" placeholder="홍길동">
           <button class="edit_name_btn" id="edit_name_btn"></button>
         </div>
         <div class="edit-paswrd">
-<!-- 비밀번호 표시 -->
+          <!-- 비밀번호 표시 -->
           <input type="text" id="edit_paswrd_input" placeholder="123456">
           <button class="edit_paswrd_btn" id="edit_paswrd_btn"></button>
         </div>
       </div>
-      
+
 
       <!-- 로그아웃 상태시 보여질 화면 -->
       <div class="user-wrap-logout">
@@ -218,9 +218,9 @@
 
 
   <!-- 로그인창 -->
-  <div class="login-wrap  none">
-    <button class="exit">
-      <span id="exit" class="material-symbols-outlined">
+  <div class="login-wrap none">
+    <button class="exit" id="modal_exit">
+      <span class="material-symbols-outlined">
         close
       </span>
     </button>
@@ -236,14 +236,14 @@
     <div class="login-wrap-footer">
       <p>아이디찾기</p>
       <p>비밀번호 찾기</p>
-      <p>회원가입</p>
+      <p id="to_signup_from_modal">회원가입</p>
     </div>
   </div>
 
 
   <!-- 회원가입창 -->
   <div class="signup-wrap none">
-    <button class="exit">
+    <button class="exit" id="signup_modal_exit">
       <span id="exit" class="material-symbols-outlined">
         close
       </span>
@@ -259,12 +259,12 @@
       <button class="signup_btn" id="signup_btn">회원가입</button>
     </div>
 
-    
+
 
 
   </div>
 
-  <script type="module" src="./script/counter.js"></script>
+
   <script type="module" src="./script/firebase.js"></script>
   <script type="module" src="./script/app.js"></script>
 </body>
