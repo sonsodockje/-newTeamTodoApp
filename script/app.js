@@ -32,13 +32,13 @@ openLoginMd.addEventListener("click", () => {
 });
 
 
-//  로그아웃 해보기 ----------------------------------------------------------
+//  로그아웃 버튼 클릭 시 ----------------------------------------------------------
 
 const logoutBtn = document.querySelector("#nav_logout_icon");
 
 logoutBtn.addEventListener("click", () => {
   logout();
-  html = "";
+  //혬님.. 무슨html을 비워야했을까료...
 });
 
 
