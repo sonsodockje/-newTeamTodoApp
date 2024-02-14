@@ -39,7 +39,12 @@ const signupMd = document.querySelector(".signup-wrap");
 function openSignupModal() {
   signupMd.classList.remove("none");
 
+  const signup_btn = document.querySelector("#signup_btn");
   const exit_btn = document.querySelector("#signup_modal_exit");
+
+  signup_btn.addEventListener("click", () => {
+    singup();
+  });
 
   exit_btn.addEventListener("click", () => {
     console.log("qkqh");
@@ -49,4 +54,14 @@ function openSignupModal() {
 
 openSignupMd.addEventListener("click", openSignupModal);
 
-//  회원가입 관련 로직 --------------------------------------------------------
+//  간이 모달 로직 --------------------------------------------------------
+export function createModal(text) {
+  let modalDiv = document.createElement("div");
+  modalDiv.innerHTML = text;
+  modalDiv.classList.add("createMoadl");
+  document.body.appendChild(modalDiv);
+
+  setTimeout(() => {
+    modalDiv.style.display = "none";
+  }, 2500);
+}

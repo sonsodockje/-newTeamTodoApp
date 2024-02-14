@@ -7,6 +7,8 @@ import {
   sendEmailVerification,
   updateProfile,
   signOut,
+  setPersistence,
+  browserSessionPersistence,
 } from "firebase/auth";
 import {
   getFirestore,
@@ -17,7 +19,7 @@ import {
   getDoc,
   getDocs,
 } from "firebase/firestore";
-
+import { createModal } from "./app.js";
 const firebaseConfig = {
   apiKey: "AIzaSyBquOi8RjipStQUXrQiKAxo1kfhNELRSQo",
   authDomain: "todo-nado.firebaseapp.com",
@@ -33,6 +35,7 @@ const db = getFirestore(app);
 getUserStateAndTodos();
 const test = document.querySelector(".test");
 const notLogin = document.querySelector(".user-wrap-logout");
+const auth = getAuth();
 
 // 특정 "문서" 가져오는 코드
 export async function getDocument(uid) {
@@ -76,7 +79,6 @@ export async function getTopicTodos(uid, item) {
 // 문서를 가져올때 유아이디를 검색하여 사용자의 투두만 가져오게 됨.
 
 // 회원가입하는 코드
-
 export function singup() {
   const auth = getAuth();
   const displayName = "홍길동3";
@@ -109,6 +111,7 @@ export function singup() {
       const errorCode = error.code;
       const errorMessage = error.message;
       console.log(errorCode, errorMessage);
+      createModal(errorMessage);
     });
 }
 
@@ -124,6 +127,7 @@ export async function uploadUserInfo(displayName, email, uid) {
     console.log("Document written with ID: ", docRef.id);
   } catch (e) {
     console.error("Error adding document: ", e);
+    createModal(e);
   }
 }
 
@@ -140,24 +144,34 @@ export async function uploadUserTodo(uid) {
 
 // 로그인 하는 코드
 export function login(email, password) {
-  const loginMd = document.querySelector(".login-wrap");
-  const auth = getAuth();
-  // const email = "Tesddfgdfgfdgfghghjhghjghjst1@gmail.com";
-  // const password = "test0000";
-  signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed in
-      const user = userCredential.user;
-      console.log("로그인됨 : ", user);
-      // 로컬스토리지에 user.uid 저장
-      //
-      getUserStateAndTodos();
-      loginMd.classList.add("none");
+  setPersistence(auth, browserSessionPersistence)
+    .then(() => {
+      const loginMd = document.querySelector(".login-wrap");
+      const auth = getAuth();
+      // const email = "Tesddfgdfgfdgfghghjhghjghjst1@gmail.com";
+      // const password = "test0000";
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          console.log("로그인됨 : ", user);
+          // 로컬스토리지에 user.uid 저장
+          //
+          getUserStateAndTodos();
+          loginMd.classList.add("none");
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorCode, errorMessage);
+          console.log("로그인 함수 에러");
+          createModal(errorMessage);
+        });
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      console.log(errorCode, errorMessage);
+      console.log("로그인 지속성 오류", errorMessage);
     });
 }
 

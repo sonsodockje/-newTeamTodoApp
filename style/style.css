@@ -7,45 +7,54 @@
 :root {
   --mainBlack: #000000;
   --mainWhite: #ffffff;
-  --mainGray: #514F4F;
-  --pointRed: #FF6A6A;
+  --mainGray: #514f4f;
+  --pointRed: #ff6a6a;
   --backColor: #3d4353;
   --shadowGray: #252525;
   --shadowGary2: #d9d9d9;
   --shadowRed: #9c4f4f;
-  --inputGray: #F1F1F1;
-  --focusGray: #D5E6E1;
-  --listRed: #FFE4D7;
-
+  --inputGray: #f1f1f1;
+  --focusGray: #d5e6e1;
+  --listRed: #ffe4d7;
 }
 
 .none {
   display: none;
 }
-button{
+button {
   cursor: pointer;
 }
+.createMoadl {
+  background-color: #0000006b;
+  color: #f74f4f;
+  padding: 20px 10px;
+  font-size: 14px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  border-radius: 0.2rem;
+}
 /* 배경색지정 */
-html{
+html {
   background-color: var(--backColor);
-
 }
 
-.exit{
+.exit {
   background-color: transparent;
   border: none;
   position: absolute;
   right: 10px;
   top: 10px;
 }
-#exit{
+#exit {
   background-color: transparent;
   color: var(--pointRed);
 }
 
-
 /* 투두카드와 로그인,프로필 묶음 */
-.container{
+.container {
   position: relative;
   top: -35px;
   display: flex;
@@ -54,14 +63,14 @@ html{
   align-items: center;
   height: 100vh;
 }
-.main-wrap{
+.main-wrap {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: flex-start;
 }
 
-.nav-bar{
+.nav-bar {
   color: var(--mainWhite);
   padding: 10px;
   position: fixed;
@@ -72,9 +81,8 @@ html{
   font-size: 18px;
 }
 
-
 /* 투두카드 설정 */
-.todo-card-wrap{
+.todo-card-wrap {
   background-color: var(--mainWhite);
   border-radius: 28px;
   height: 320px;
@@ -82,10 +90,10 @@ html{
   position: relative;
   box-shadow: 2px 3px 1px 0px var(--shadowGray);
 }
-.todo-card-header{
+.todo-card-header {
   background-color: var(--pointRed);
   height: 50px;
-  border-radius: 27.5px  27.5px 0 0 ;
+  border-radius: 27.5px 27.5px 0 0;
   text-align: justify;
   display: flex;
   flex-direction: row;
@@ -98,51 +106,53 @@ html{
   /* border-radius: 25px; */
   /* box-shadow: 2px 3px 1px 0px var(--shadowGray); */
 }
-   .todo-card-title{
-    margin-left: 30px;
-  }
-  .open_btn, .opened_btn{
-    margin-right: 22px;
-    background-color: transparent;
-    border: none;
-    color: var(--mainWhite);
-    transition: all ease 200ms;
-  }
-  .opened_btn:active, .open_btn:active{
-    margin-top: 3px;
-  }
+.todo-card-title {
+  margin-left: 30px;
+}
+.open_btn,
+.opened_btn {
+  margin-right: 22px;
+  background-color: transparent;
+  border: none;
+  color: var(--mainWhite);
+  transition: all ease 200ms;
+}
+.opened_btn:active,
+.open_btn:active {
+  margin-top: 3px;
+}
 
-.todo-card-todolist{
+.todo-card-todolist {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 5px;
 }
-ul{
+ul {
   list-style: none;
   color: var(--mainGray);
   cursor: default;
 }
-  .todo-card-todolist li{
-    display: flex;
-    align-items: center;
-    background-color: var(--listRed);
-    border-radius: 12px;
-    padding: 5px;
-    width: 260px;
-    height: 40px;
-    margin: 9px;
-    box-shadow: 1px 2px 1px 0px var(--shadowGary2);
-  }
-  .todo-card-todolist-btn{
-    border: none;
-    background-color: transparent;
-    display: flex;
-    align-items: center;
-    margin: 3px 10px 3px 3px;
-  }
+.todo-card-todolist li {
+  display: flex;
+  align-items: center;
+  background-color: var(--listRed);
+  border-radius: 12px;
+  padding: 5px;
+  width: 260px;
+  height: 40px;
+  margin: 9px;
+  box-shadow: 1px 2px 1px 0px var(--shadowGary2);
+}
+.todo-card-todolist-btn {
+  border: none;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  margin: 3px 10px 3px 3px;
+}
 
-.todo-card-input-area{
+.todo-card-input-area {
   position: absolute;
   bottom: 18px;
   left: 0;
@@ -151,50 +161,47 @@ ul{
   margin: auto;
   text-align: center;
 }
-  input{
-    height: 35px;
-    width: 220px;
-    border: none;
-    border-radius: 5px;
-    background-color: var(--inputGray);
-    padding: 13px;
-    font-size: 13.5px;
-  }
-  input:focus{
-    outline: none;
-    background-color: var(--focusGray);
-  }
-  .todo_send{
-    height: 35px;
-    width: 35px;
-    background-color: var(--pointRed);
-    border: none;
-    border-radius: 5px;
-    color: var(--mainWhite);
-    transition: all ease 200ms;
-  }
-  .todo_send:active{
-    box-shadow: inset 2px 2px 2px 0px var(--shadowRed);
-  }
+input {
+  height: 35px;
+  width: 220px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--inputGray);
+  padding: 13px;
+  font-size: 13.5px;
+}
+input:focus {
+  outline: none;
+  background-color: var(--focusGray);
+}
+.todo_send {
+  height: 35px;
+  width: 35px;
+  background-color: var(--pointRed);
+  border: none;
+  border-radius: 5px;
+  color: var(--mainWhite);
+  transition: all ease 200ms;
+}
+.todo_send:active {
+  box-shadow: inset 2px 2px 2px 0px var(--shadowRed);
+}
 
-
-
-  /* 접힌화면 */
-  .todo-card-header-close{
-    background-color: var(--pointRed);
-    height: 50px;
-    border-radius: 25px;
-    text-align: justify;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 19px;
-    color: var(--mainWhite);
-    cursor: default;
-    box-shadow: 2px 3px 1px 0px var(--shadowGray);
-  }
-
+/* 접힌화면 */
+.todo-card-header-close {
+  background-color: var(--pointRed);
+  height: 50px;
+  border-radius: 25px;
+  text-align: justify;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 19px;
+  color: var(--mainWhite);
+  cursor: default;
+  box-shadow: 2px 3px 1px 0px var(--shadowGray);
+}
 
 /* 프로필*/
 /* .user-wrap-login{
@@ -263,8 +270,6 @@ ul{
       box-shadow: inset 2px 2px 2px 0px var(--shadowRed);
     } */
 
-
-    
 /* 프로필수정창 */
 /* .edit-profile{
   position: fixed;
@@ -334,10 +339,9 @@ ul{
   .edit_name_btn:active, .edit_paswrd_btn:active{
     box-shadow: inset 2px 2px 2px 0px var(--shadowRed);
   } */
-   
 
 /* 로그아웃 시 보여지는 화면 오른쪽 로고창 */
-.user-wrap-logout{
+.user-wrap-logout {
   background-color: var(--mainWhite);
   border-radius: 28px;
   height: 190px;
@@ -351,7 +355,8 @@ ul{
   box-shadow: 2px 3px 1px 0px var(--shadowGray);
 }
 
-.open_login_md, .open_signup_md{
+.open_login_md,
+.open_signup_md {
   background-color: var(--pointRed);
   border: none;
   height: 35px;
@@ -361,21 +366,21 @@ ul{
   color: var(--mainWhite);
   transition: all ease 200ms;
 }
-.open_login_md:active, .open_signup_md:active{
+.open_login_md:active,
+.open_signup_md:active {
   box-shadow: inset 2px 2px 2px 0px var(--shadowRed);
 }
 
-.logo{
+.logo {
   border-radius: 40px;
   margin-bottom: 20px;
 }
 
-
 /*로그인창*/
-.login-wrap{
+.login-wrap {
   position: fixed;
   z-index: 4;
-  top: 50%; 
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   justify-content: center;
@@ -390,46 +395,46 @@ ul{
   background-color: var(--mainWhite);
   box-shadow: 2px 3px 3px 0px #252525;
 }
-  .login-wrap-header{
-    top: 40px;
-  }
+.login-wrap-header {
+  top: 40px;
+}
 
-  h1{
-    margin: 40px 0 35px 0;
-    cursor: default;
-  }
-  .login-wrap-header p{
-    color: var(--mainGray);
-    margin-bottom: 10px;
-    cursor: default;
-  }
+h1 {
+  margin: 40px 0 35px 0;
+  cursor: default;
+}
+.login-wrap-header p {
+  color: var(--mainGray);
+  margin-bottom: 10px;
+  cursor: default;
+}
 
-  .login-wrap-input-area{
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-  }
-  .login-wrap-input-area input{
-    height: 37px;
-    margin-bottom: 10px;
-  }
-  .login-wrap-footer{
-    display: flex;
-    flex-direction: row;
-    width: 220px;
-    justify-content: space-between;
-    position: absolute;
-    bottom: 20px;
-    /*외때문인지 가운데로 안가서 지저분해졌습니다..*/
-    left: 36px;
-    font-size: 11px; 
-    color: #9B9B9B;
-  }
-  .login-wrap-footer p{
-    cursor: pointer;
-  }
+.login-wrap-input-area {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.login-wrap-input-area input {
+  height: 37px;
+  margin-bottom: 10px;
+}
+.login-wrap-footer {
+  display: flex;
+  flex-direction: row;
+  width: 220px;
+  justify-content: space-between;
+  position: absolute;
+  bottom: 20px;
+  /*외때문인지 가운데로 안가서 지저분해졌습니다..*/
+  left: 36px;
+  font-size: 11px;
+  color: #9b9b9b;
+}
+.login-wrap-footer p {
+  cursor: pointer;
+}
 
-.login_btn{
+.login_btn {
   background-color: var(--pointRed);
   border: none;
   height: 35px;
@@ -439,18 +444,16 @@ ul{
   color: var(--mainWhite);
   transition: all ease 200ms;
 }
-.login_btn:active{
+.login_btn:active {
   box-shadow: inset 2px 2px 2px 0px var(--shadowRed);
 }
 
-
-
 /*회원가입창*/
 
-.signup-wrap{
+.signup-wrap {
   position: fixed;
   z-index: 4;
-  top: 50%; 
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   justify-content: center;
@@ -465,30 +468,29 @@ ul{
   background-color: var(--mainWhite);
   box-shadow: 2px 3px 3px 0px #252525;
 }
-  .signup-wrap-header{
-   
-    top: 40px;
-  }
+.signup-wrap-header {
+  top: 40px;
+}
 
-  h1{
-    margin: 40px 0 35px 0;
-  }
-  .signup-wrap-header p{
-    color: var(--mainGray);
-    margin-bottom: 10px;
-  }
+h1 {
+  margin: 40px 0 35px 0;
+}
+.signup-wrap-header p {
+  color: var(--mainGray);
+  margin-bottom: 10px;
+}
 
-  .signup-wrap-input-area{
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-  }
-  .signup-wrap-input-area input{
-    height: 37px;
-    margin-bottom: 10px;
-  }
+.signup-wrap-input-area {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.signup-wrap-input-area input {
+  height: 37px;
+  margin-bottom: 10px;
+}
 
-.signup_btn{
+.signup_btn {
   background-color: var(--pointRed);
   border: none;
   height: 35px;
@@ -498,12 +500,9 @@ ul{
   color: var(--mainWhite);
   transition: all ease 200ms;
 }
-.signup_btn:active{
+.signup_btn:active {
   box-shadow: inset 2px 2px 2px 0px var(--shadowRed);
 }
-
-
-
 
 /* 목록수정창 */
 /* .list-management{
