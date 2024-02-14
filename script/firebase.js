@@ -8,7 +8,7 @@ import {
   updateProfile,
   signOut,
   setPersistence,
-  browserSessionPersistence,
+  browserLocalPersistence,
 } from "firebase/auth";
 import {
   getFirestore,
@@ -32,48 +32,9 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-getUserStateAndTodos();
-const test = document.querySelector(".test");
-const notLogin = document.querySelector(".user-wrap-logout");
 const auth = getAuth();
 
-// 특정 "문서" 가져오는 코드
-export async function getDocument(uid) {
-  const docRef = doc(db, "todos", uid);
-  const docSnap = await getDoc(docRef);
-  const todoWrap = document.querySelector(".todos-wrap");
-
-  if (docSnap.exists()) {
-    console.log("Document data:", docSnap.data().topics);
-    docSnap.data().topics.forEach((item) => {
-      {
-        const 템플릿 = `<div class="todo-card-wrap ">
-                        <div class="todo-card-header">
-                          <span class="todo-card-title">${item}</span>
-                          <button class="opened_btn">
-                            <span class="material-symbols-outlined">
-                              menu
-                            </span>
-                          </button>
-                        </div>
-                      </div>`;
-
-        todoWrap.innerHTML += 템플릿;
-
-        getTopicTodos(uid, item);
-      }
-    });
-  } else {
-    console.log("No such document!");
-  }
-}
-
-export async function getTopicTodos(uid, item) {
-  const querySnapshot = await getDocs(collection(db, "todos", uid, item));
-  querySnapshot.forEach((doc) => {
-    console.log(doc.id, " 주제는 ", item, "=> ", doc.data());
-  });
-}
+getUserStateAndTodos();
 
 // 로그인한 회원의 유아이디를 매개변수로 전달하면
 // 문서를 가져올때 유아이디를 검색하여 사용자의 투두만 가져오게 됨.
@@ -90,29 +51,27 @@ export function singup(input_email, input_pw, name) {
 
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      // 회원가입을 성공하면 아래를 합니다.
       const user = userCredential.user;
-      console.log("회원가입 성공 : ", user);
       createModal("회원가입 성공");
 
-      // 모달 숨기고, 아이콘 보여주고, 회원가입 레이아웃 숨기고,
+      //                                                              모달 숨기고, 아이콘 보여주고, 회원가입 레이아웃 숨기고,
       signupMd.classList.add("none");
       nav_icon.classList.remove("none");
 
-      // 유저의 프로필 정보를 수정합니다.
+      //                                                              유저의 프로필 정보를 수정합니다.
       updateProfile(auth.currentUser, {
         displayName: displayName,
       })
         .then(() => {
-          console.log("이름넣기 완", auth.currentUser);
+          console.log("✨ 사용자의 이름을 추가했어요.");
         })
         .catch((error) => {
-          console.log(error);
+          console.log("updateProfile 에러 : ", error);
         });
 
-      // 유저의 정보를 파이어베이스 데이터 베이스에 저장합니다.
+      //   유저의 정보를 파이어베이스 데이터 베이스에 저장합니다.
       uploadUserInfo(displayName, email, user.uid);
-      // 기본 할일 항목을 만듭니다.
+      //   기본 할일 항목을 만듭니다.
       uploadUserTodo(user.uid);
     })
     .catch((error) => {
@@ -123,68 +82,65 @@ export function singup(input_email, input_pw, name) {
     });
 }
 
-// 회원가입시 사용자 정보 db 에 저장
+//         회원가입 이후 사용자 정보 db 에 저장
 export async function uploadUserInfo(displayName, email, uid) {
   try {
-    const docRef = await addDoc(collection(db, "users"), {
+    const docTodosRef = await addDoc(collection(db, "users"), {
       displayName: displayName,
       email: email,
       uid: uid,
       code: [],
     });
-    console.log("Document written with ID: ", docRef.id);
   } catch (e) {
-    console.error("Error adding document: ", e);
-    createModal(e);
+    console.error("☝️ 회원가입 후 사용자 정보를 저장하지 못하였습니다.: ", e);
   }
 }
 
-// 회원가입시 기본 필드 생성
+//       회원가입 이후 오늘 할 일, 오늘 할 일 컬렉션 생성
 export async function uploadUserTodo(uid) {
-  const userDocRef = doc(db, "todos", uid);
-  await setDoc(userDocRef, {
+  const userTodosdocTodosRef = doc(db, "todos", uid);
+  await setDoc(userTodosdocTodosRef, {
     topics: ["오늘 할 일"],
   });
-  await setDoc(userDocRef, {
-    test: "test",
+
+  await addDoc(collection(db, "todos", uid, "오늘 할 일"), {
+    sample: "test",
   });
 }
 
-// 로그인 하는 코드
+// **************************  로그인  ********************************
 export function login(email, password) {
-  setPersistence(auth, browserSessionPersistence)
+  setPersistence(auth, browserLocalPersistence)
     .then(() => {
       const loginMd = document.querySelector(".login-wrap");
+
+      const userDefaultDiv = document.querySelector(".user-wrap-logout");
+      const test = document.querySelector(".default-card");
+      const userInfoDiv = document.querySelector(".user-wrap-login");
       const auth = getAuth();
-      // const email = "Tesddfgdfgfdgfghghjhghjghjst1@gmail.com";
-      // const password = "test0000";
+
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-          // Signed in
           const user = userCredential.user;
           console.log("로그인됨 : ", user);
-          // 로컬스토리지에 user.uid 저장
-          //
-          getUserStateAndTodos();
+
           loginMd.classList.add("none");
+          userDefaultDiv.classList.add("none");
+          // userInfoDiv.classList.remove("none");
+
+          getUserStateAndTodos();
+          test.classList.add("none");
         })
         .catch((error) => {
-          const errorCode = error.code;
           const errorMessage = error.message;
-          console.log(errorCode, errorMessage);
-          console.log("로그인 함수 에러");
-          createModal(errorMessage);
+          createModal("로그인 함수 에러 : ", errorMessage);
         });
     })
     .catch((error) => {
-      const errorCode = error.code;
       const errorMessage = error.message;
       console.log("로그인 지속성 오류", errorMessage);
     });
 }
-
-// 로그인 후 사용자 데이터 가져오기(현재 로그인한 사용자 가져오기)
-// 로그 아웃 전까지 유지? 되는? 듯 하는? 그런? 거?
 
 export function getUserStateAndTodos() {
   const auth = getAuth();
@@ -192,20 +148,66 @@ export function getUserStateAndTodos() {
 
   if (user) {
     const uid = user.uid;
-    console.log("로그인됨 ", user);
-
-    // - [O] 디폴트 투두 지우기
-    // - [O] 로그인창 지우기
-    test.style.display = "none";
-    notLogin.style.display = "none";
-
-    // - [O] 사용자 디비 불러옴.
     getDocument(uid);
-
-    // - [ ] 우측 상단아이콘 띄우기.
   } else {
-    // - [ ] 로그인, 회원가입 오른쪽편 띄움.
+    console.log("getUserStateAndTodos else 상태임.");
   }
+}
+
+//                    특정 "문서" 가져오는 코드 -> 유저의 topics 리스트만
+export async function getDocument(uid) {
+  const docTodosRef = doc(db, "todos", uid);
+  const docSnap = await getDoc(docTodosRef);
+  const todoWrap = document.querySelector(".todos-wrap");
+
+  if (docSnap.exists()) {
+    docSnap.data().topics.forEach((item) => {
+      {
+        const className = item.replace(/ /g, "");
+        const 템플릿 = `<div class="todo-card-wrap" >
+                        <div class="todo-card-header">
+                          <span class="todo-card-title">${item}</span>
+                          <button class="opened_btn">
+                            <span class="material-symbols-outlined">
+                              menu
+                            </span>
+                          </button>
+                        </div>
+                        <div class="todo-card-todolist" >
+                            <ul id="${className}-ul">
+                            </ul>
+                        </div>
+                        <div class="todo-card-input-area">
+                          <input type="text" id="todo_input">
+                          <button class="todo_send" id="${className}-send">저장</button>
+                        </div>
+                      </div>`;
+
+        todoWrap.innerHTML += 템플릿;
+        getTopicTodos(uid, item, className);
+      }
+    });
+  } else {
+    console.log("No such document!");
+  }
+}
+
+//          문서의 컬렉션으로 접근하여 읽어오는것.
+export async function getTopicTodos(uid, item, className) {
+  const ul = document.querySelector(`#${className}-ul`);
+  const querySnapshot = await getDocs(collection(db, "todos", uid, item));
+  querySnapshot.forEach((doc) => {
+    console.log(doc.id, " 주제는 ", item, "=> ", doc.data());
+    const 템플릿 = ` <li>
+                      <button class="todo-card-todolist-btn false">
+                        <span class="material-symbols-outlined">
+                          radio_button_unchecked
+                        </span>
+                      </button>
+                      <span>${doc.data().text}</span>
+                    </li>`;
+    ul.innerHTML += 템플릿;
+  });
 }
 
 // 이메일 인증 메일 보내기
