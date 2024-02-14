@@ -35,7 +35,7 @@ const test = document.querySelector(".test");
 const notLogin = document.querySelector(".user-wrap-logout");
 
 // 특정 "문서" 가져오는 코드
-async function getDocument(uid) {
+export async function getDocument(uid) {
   const docRef = doc(db, "todos", uid);
   const docSnap = await getDoc(docRef);
   const todoWrap = document.querySelector(".todos-wrap");
@@ -65,7 +65,7 @@ async function getDocument(uid) {
   }
 }
 
-async function getTopicTodos(uid, item) {
+export async function getTopicTodos(uid, item) {
   const querySnapshot = await getDocs(collection(db, "todos", uid, item));
   querySnapshot.forEach((doc) => {
     console.log(doc.id, " 주제는 ", item, "=> ", doc.data());
@@ -80,8 +80,8 @@ async function getTopicTodos(uid, item) {
 export function singup() {
   const auth = getAuth();
   const displayName = "홍길동3";
-  const email = "Test412455@gmail.com";
-  const password = "test0000";
+  // const email = "Test412455@gmail.com";
+  // const password = "test0000";
 
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
@@ -113,7 +113,7 @@ export function singup() {
 }
 
 // 회원가입시 사용자 정보 db 에 저장
-async function uploadUserInfo(displayName, email, uid) {
+export async function uploadUserInfo(displayName, email, uid) {
   try {
     const docRef = await addDoc(collection(db, "users"), {
       displayName: displayName,
@@ -128,7 +128,7 @@ async function uploadUserInfo(displayName, email, uid) {
 }
 
 // 회원가입시 기본 필드 생성
-async function uploadUserTodo(uid) {
+export async function uploadUserTodo(uid) {
   const userDocRef = doc(db, "todos", uid);
   await setDoc(userDocRef, {
     topics: ["오늘 할 일"],
@@ -137,12 +137,13 @@ async function uploadUserTodo(uid) {
     test: "test",
   });
 }
-login();
+
 // 로그인 하는 코드
-export function login() {
+export function login(email, password) {
+  const loginMd = document.querySelector(".login-wrap");
   const auth = getAuth();
-  const email = "Tesddfgdfgfdgfghghjhghjghjst1@gmail.com";
-  const password = "test0000";
+  // const email = "Tesddfgdfgfdgfghghjhghjghjst1@gmail.com";
+  // const password = "test0000";
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in
@@ -151,6 +152,7 @@ export function login() {
       // 로컬스토리지에 user.uid 저장
       //
       getUserStateAndTodos();
+      loginMd.classList.add("none");
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -194,7 +196,7 @@ export function emailVerification() {
   });
 }
 
-function logout() {
+export function logout() {
   const auth = getAuth();
   signOut(auth)
     .then(() => {
