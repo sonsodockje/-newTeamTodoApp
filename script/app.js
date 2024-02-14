@@ -39,11 +39,19 @@ const signupMd = document.querySelector(".signup-wrap");
 function openSignupModal() {
   signupMd.classList.remove("none");
 
+  const signup_name_input = document.querySelector("#signup_name");
+  const lsignup_email_input = document.querySelector("#signup_email");
+  const signup_pw_input = document.querySelector("#signup_pw");
+
   const signup_btn = document.querySelector("#signup_btn");
   const exit_btn = document.querySelector("#signup_modal_exit");
 
   signup_btn.addEventListener("click", () => {
-    singup();
+    singup(
+      lsignup_email_input.value,
+      signup_pw_input.value,
+      signup_name_input.value
+    );
   });
 
   exit_btn.addEventListener("click", () => {
