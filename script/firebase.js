@@ -47,7 +47,6 @@ export function singup(input_email, input_pw, name) {
   const password = input_pw;
   const displayName = name;
   const signupMd = document.querySelector(".signup-wrap");
-  const nav_icon = document.querySelector(".icon-bar");
 
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
@@ -56,7 +55,6 @@ export function singup(input_email, input_pw, name) {
 
       //                                                              모달 숨기고, 아이콘 보여주고, 회원가입 레이아웃 숨기고,
       signupMd.classList.add("none");
-      nav_icon.classList.remove("none");
 
       //                                                              유저의 프로필 정보를 수정합니다.
       updateProfile(auth.currentUser, {
@@ -119,6 +117,7 @@ export function login(email, password) {
       const test = document.querySelector(".default-card");
       const userInfoDiv = document.querySelector(".user-wrap-login");
       const auth = getAuth();
+      const nav_icon = document.querySelector(".icon-bar");
 
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
@@ -127,6 +126,7 @@ export function login(email, password) {
 
           loginMd.classList.add("none");
           userDefaultDiv.classList.add("none");
+          nav_icon.classList.remove("none");
           // userInfoDiv.classList.remove("none");
 
           getUserStateAndTodos();
@@ -245,9 +245,12 @@ export function emailVerification() {
 
 export function logout() {
   const auth = getAuth();
+  const nav_icon = document.querySelector(".icon-bar");
+
   signOut(auth)
     .then(() => {
       console.log("로그웃완료");
+      nav_icon.classList.add("none");
     }) // logout successful
     .catch((error) => {
       console.log(error);

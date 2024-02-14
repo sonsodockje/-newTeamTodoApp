@@ -31,6 +31,18 @@ openLoginMd.addEventListener("click", () => {
   });
 });
 
+
+//  로그아웃 해보기 ----------------------------------------------------------
+
+const logoutBtn = document.querySelector("#nav_logout_icon");
+
+logoutBtn.addEventListener("click", () => {
+  logout();
+  html = "";
+});
+
+
+
 //  회원가입 관련 로직 --------------------------------------------------------
 
 const openSignupMd = document.getElementById("open_signup_md");
@@ -40,6 +52,7 @@ function openSignupModal() {
   signupMd.classList.remove("none");
 
   const signup_name_input = document.querySelector("#signup_name");
+// 혹시...오타인가용
   const lsignup_email_input = document.querySelector("#signup_email");
   const signup_pw_input = document.querySelector("#signup_pw");
 

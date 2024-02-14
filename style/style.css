@@ -76,6 +76,10 @@ html {
   justify-content: space-between;
   width: 100%;
   font-size: 18px;
+  cursor: default;
+}
+.icon-bar > span{
+  cursor: pointer;
 }
 
 /* 투두카드 설정 */
