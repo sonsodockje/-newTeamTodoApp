@@ -112,12 +112,11 @@ export function login(email, password) {
   setPersistence(auth, browserLocalPersistence)
     .then(() => {
       const loginMd = document.querySelector(".login-wrap");
-
       const userDefaultDiv = document.querySelector(".user-wrap-logout");
-      const test = document.querySelector(".default-card");
-      const userInfoDiv = document.querySelector(".user-wrap-login");
+      const defaultCard = document.querySelector(".default-card");
       const auth = getAuth();
       const nav_icon = document.querySelector(".icon-bar");
+      const bug = document.querySelector(".bug");
 
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
@@ -127,10 +126,10 @@ export function login(email, password) {
           loginMd.classList.add("none");
           userDefaultDiv.classList.add("none");
           nav_icon.classList.remove("none");
-          // userInfoDiv.classList.remove("none");
+          defaultCard.classList.add("none");
+          bug.classList.remove("none");
 
           getUserStateAndTodos();
-          test.classList.add("none");
         })
         .catch((error) => {
           const errorMessage = error.message;
@@ -164,6 +163,7 @@ export async function getDocument(uid) {
   const todoWrap = document.querySelector(".todos-wrap");
 
   if (docSnap.exists()) {
+    todoWrap.innerHTML = "";
     docSnap.data().topics.forEach((item) => {
       {
         const className = item.replace(/ /g, "");
@@ -180,10 +180,12 @@ export async function getDocument(uid) {
                             <ul id="${className}-ul">
                             </ul>
                         </div>
+                        <!--
                         <div class="todo-card-input-area">
                           <input type="text" id="${className}_todo_input">
-                          <button class="todo_send" id="${className}_send">저장</button>
+                          <button class="todo_send" id="${className}_send disabled">X</button>
                         </div>
+                        -->
                       </div>`;
 
         todoWrap.innerHTML += 템플릿;
@@ -215,21 +217,27 @@ export async function getTopicTodos(uid, item, className) {
 
 // **************************  오늘 할 일 쓰기  *************************
 
-// var todo_input = document.querySelector("#오늘할일_todo_input");
-// var todo_input_send = document.querySelector("#오늘할일_send");
-// todo_input_send.addEventListener("click", updateTodo(todo_input.value));
+const bugBtn = document.querySelector("#bug_send");
+
+bugBtn.addEventListener("click", () => {
+  const bugInput = document.querySelector("#bug_input");
+  updateTodo(bugInput.value);
+  bugInput.value = "";
+});
 
 export async function updateTodo(inputText) {
   const auth = getAuth();
-  console.log(auth);
-  try {
-    await addDoc(collection(db, "todos", auth.uid, "오늘 할 일"), {
+  console.log(auth.currentUser.uid);
+
+  const test = await addDoc(
+    collection(db, "todos", String(auth.currentUser.uid), "오늘 할 일"),
+    {
       text: inputText,
       time: new Date(),
-    });
-  } catch (e) {
-    console.error("☝️ 뭐가 문제야: ", e);
-  }
+    }
+  );
+  console.log("Document written with ID: ", test.id);
+  getDocument(String(auth.currentUser.uid));
 }
 // **************************  아래로 기타  ***************************
 
@@ -246,11 +254,55 @@ export function emailVerification() {
 export function logout() {
   const auth = getAuth();
   const nav_icon = document.querySelector(".icon-bar");
+  const todoWrap = document.querySelector(".todos-wrap");
+  const userDefaultDiv = document.querySelector(".user-wrap-logout");
+  const bug = document.querySelector(".bug");
 
   signOut(auth)
     .then(() => {
       console.log("로그웃완료");
+
       nav_icon.classList.add("none");
+      userDefaultDiv.classList.remove("none");
+      bug.classList.add("none");
+
+      todoWrap.innerHTML = `<div class="todo-card-wrap default-card">
+      <div class="todo-card-header">
+        <!-- 클래스명 추가 -->
+        <span class="todo-card-title">오늘 할 일</span>
+        <button class="opened_btn">
+          <span class="material-symbols-outlined">
+            menu
+          </span>
+        </button>
+      </div>
+      <div class="todo-card-todolist">
+        <ul>
+          <li>
+            <button class="todo-card-todolist-btn false">
+              <span class="material-symbols-outlined">
+                radio_button_unchecked
+              </span>
+            </button>
+            <span>저녁 먹기</span>
+          </li>
+          <li>
+            <button class="todo-card-todolist-btn true">
+              <span class="material-symbols-outlined">
+                expand_circle_down
+              </span>
+            </button>
+            <span>아침 먹기</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="todo-card-input-area">
+        <input type="text" id="todo_input" placeholder=" 로그인을 해주세요.">
+        <button class="todo_send" id="todo_send">저장</button>
+      </div>
+
+    </div>`;
     }) // logout successful
     .catch((error) => {
       console.log(error);
