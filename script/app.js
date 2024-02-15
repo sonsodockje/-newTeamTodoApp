@@ -37,7 +37,6 @@ const logoutBtn = document.querySelector("#nav_logout_icon");
 
 logoutBtn.addEventListener("click", () => {
   logout();
-  //혬님.. 무슨html을 비워야했을까료...
 });
 
 //  회원가입 관련 로직 --------------------------------------------------------
@@ -72,7 +71,7 @@ function openSignupModal() {
 
 openSignupMd.addEventListener("click", openSignupModal);
 
-//  간이 모달 로직 --------------------------------------------------------
+//  간이 모달 함수 --------------------------------------------------------
 export function createModal(text) {
   let modalDiv = document.createElement("div");
   modalDiv.innerHTML = text;
@@ -84,7 +83,7 @@ export function createModal(text) {
   }, 2500);
 }
 
-// 네브 바로가기
+// 네브 바로가기(새로고침) ------------------------------------------------------
 const textLogo = document.querySelector("#nav_text_logo");
 textLogo.addEventListener("click", () => {
   location.reload();

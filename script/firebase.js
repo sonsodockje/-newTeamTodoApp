@@ -1,10 +1,8 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  sendEmailVerification,
   updateProfile,
   signOut,
   setPersistence,
@@ -36,9 +34,6 @@ const auth = getAuth();
 
 getUserStateAndTodos();
 
-// 로그인한 회원의 유아이디를 매개변수로 전달하면
-// 문서를 가져올때 유아이디를 검색하여 사용자의 투두만 가져오게 됨.
-
 // **************************  회원가입  ********************************
 
 export function singup(input_email, input_pw, name) {
@@ -67,9 +62,9 @@ export function singup(input_email, input_pw, name) {
           console.log("updateProfile 에러 : ", error);
         });
 
-      //   유저의 정보를 파이어베이스 데이터 베이스에 저장합니다.
+      //                                                             유저의 정보를 파이어베이스 데이터 베이스에 저장합니다.
       uploadUserInfo(displayName, email, user.uid);
-      //   기본 할일 항목을 만듭니다.
+      //                                                             "오늘 할 일"항목을 만듭니다.
       uploadUserTodo(user.uid);
     })
     .catch((error) => {
@@ -80,7 +75,7 @@ export function singup(input_email, input_pw, name) {
     });
 }
 
-//         회원가입 이후 사용자 정보 db 에 저장
+//                                                                    회원가입 이후 사용자 정보 db 에 저장
 export async function uploadUserInfo(displayName, email, uid) {
   try {
     const docTodosRef = await addDoc(collection(db, "users"), {
@@ -94,7 +89,7 @@ export async function uploadUserInfo(displayName, email, uid) {
   }
 }
 
-//       회원가입 이후 오늘 할 일, 오늘 할 일 컬렉션 생성
+//                                                                    회원가입 이후 오늘 할 일, 오늘 할 일 컬렉션 생성
 export async function uploadUserTodo(uid) {
   const userTodosdocTodosRef = doc(db, "todos", uid);
   await setDoc(userTodosdocTodosRef, {
@@ -125,8 +120,8 @@ export function login(email, password) {
 
           loginMd.classList.add("none");
           userDefaultDiv.classList.add("none");
-          nav_icon.classList.remove("none");
           defaultCard.classList.add("none");
+          nav_icon.classList.remove("none");
           bug.classList.remove("none");
 
           getUserStateAndTodos();
@@ -142,7 +137,7 @@ export function login(email, password) {
     });
 }
 
-// **************************  읽어 오기  ********************************
+// **************************  현재 로그인한 유저의 데이터 읽어 오기  ********************************
 
 export function getUserStateAndTodos() {
   const auth = getAuth();
@@ -156,7 +151,7 @@ export function getUserStateAndTodos() {
   }
 }
 
-//                    특정 "문서" 가져오는 코드 -> 유저의 topics 리스트만
+// **************************  특정 "문서" 가져오는 코드 -> 유저의 topics 만 **************************
 export async function getDocument(uid) {
   const docTodosRef = doc(db, "todos", uid);
   const docSnap = await getDoc(docTodosRef);
@@ -197,10 +192,12 @@ export async function getDocument(uid) {
   }
 }
 
-//          문서의 컬렉션으로 접근하여 읽어오는것.
+// ************************** 문서 안의 하위 컬렉션에 접근 *******************
+
 export async function getTopicTodos(uid, item, className) {
   const ul = document.querySelector(`#${className}-ul`);
   const querySnapshot = await getDocs(collection(db, "todos", uid, item));
+
   querySnapshot.forEach((doc) => {
     console.log(doc.id, " 주제는 ", item, "=> ", doc.data());
     const 템플릿 = ` <li>
@@ -239,17 +236,8 @@ export async function updateTodo(inputText) {
   console.log("Document written with ID: ", test.id);
   getDocument(String(auth.currentUser.uid));
 }
-// **************************  아래로 기타  ***************************
 
-// 이메일 인증 메일 보내기
-export function emailVerification() {
-  const auth = getAuth();
-  auth.languageCode = "it";
-  sendEmailVerification(auth.currentUser).then(() => {
-    // Email verification sent!
-    // ...
-  });
-}
+// **************************  로그아웃  ***************************
 
 export function logout() {
   const auth = getAuth();
@@ -267,42 +255,39 @@ export function logout() {
       bug.classList.add("none");
 
       todoWrap.innerHTML = `<div class="todo-card-wrap default-card">
-      <div class="todo-card-header">
-        <!-- 클래스명 추가 -->
-        <span class="todo-card-title">오늘 할 일</span>
-        <button class="opened_btn">
-          <span class="material-symbols-outlined">
-            menu
-          </span>
-        </button>
-      </div>
-      <div class="todo-card-todolist">
-        <ul>
-          <li>
-            <button class="todo-card-todolist-btn false">
-              <span class="material-symbols-outlined">
-                radio_button_unchecked
-              </span>
-            </button>
-            <span>저녁 먹기</span>
-          </li>
-          <li>
-            <button class="todo-card-todolist-btn true">
-              <span class="material-symbols-outlined">
-                expand_circle_down
-              </span>
-            </button>
-            <span>아침 먹기</span>
-          </li>
-        </ul>
-      </div>
-
-      <div class="todo-card-input-area">
-        <input type="text" id="todo_input" placeholder=" 로그인을 해주세요.">
-        <button class="todo_send" id="todo_send">저장</button>
-      </div>
-
-    </div>`;
+                              <div class="todo-card-header">
+                                <span class="todo-card-title">오늘 할 일</span>
+                                <button class="opened_btn">
+                                  <span class="material-symbols-outlined">
+                                    menu
+                                  </span>
+                                </button>
+                              </div>
+                              <div class="todo-card-todolist">
+                                <ul>
+                                  <li>
+                                    <button class="todo-card-todolist-btn false">
+                                      <span class="material-symbols-outlined">
+                                        radio_button_unchecked
+                                      </span>
+                                    </button>
+                                    <span>저녁 먹기</span>
+                                  </li>
+                                  <li>
+                                    <button class="todo-card-todolist-btn true">
+                                      <span class="material-symbols-outlined">
+                                        expand_circle_down
+                                      </span>
+                                    </button>
+                                    <span>아침 먹기</span>
+                                  </li>
+                                </ul>
+                              </div>
+                              <div class="todo-card-input-area">
+                                <input type="text" id="todo_input" placeholder=" 로그인을 해주세요.">
+                                <button class="todo_send" id="todo_send">저장</button>
+                              </div>
+                            </div>`;
     }) // logout successful
     .catch((error) => {
       console.log(error);
