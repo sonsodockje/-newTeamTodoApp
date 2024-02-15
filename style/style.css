@@ -628,7 +628,9 @@ h1 {
   height: 250px;
   overflow: scroll;
 }
-
+#nav_text_logo {
+  cursor: pointer;
+}
 /******************************** none ********************************/
 .none {
   display: none;

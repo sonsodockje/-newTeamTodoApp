@@ -8,7 +8,7 @@ import {
   updateProfile,
   signOut,
   setPersistence,
-  browserLocalPersistence,
+  browserSessionPersistence,
 } from "firebase/auth";
 import {
   getFirestore,
@@ -76,7 +76,7 @@ export function singup(input_email, input_pw, name) {
       const errorCode = error.code;
       const errorMessage = error.message;
       console.log(errorCode, errorMessage);
-      createModal(errorMessage);
+      createModal("회원가입 에러 : " + errorMessage);
     });
 }
 
@@ -109,7 +109,7 @@ export async function uploadUserTodo(uid) {
 // **************************  로그인  ********************************
 
 export function login(email, password) {
-  setPersistence(auth, browserLocalPersistence)
+  setPersistence(auth, browserSessionPersistence)
     .then(() => {
       const loginMd = document.querySelector(".login-wrap");
       const userDefaultDiv = document.querySelector(".user-wrap-logout");
@@ -133,7 +133,7 @@ export function login(email, password) {
         })
         .catch((error) => {
           const errorMessage = error.message;
-          createModal("로그인 함수 에러 : ", errorMessage);
+          createModal("로그인 에러 : " + errorMessage);
         });
     })
     .catch((error) => {

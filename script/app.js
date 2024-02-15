@@ -31,7 +31,6 @@ openLoginMd.addEventListener("click", () => {
   });
 });
 
-
 //  로그아웃 버튼 클릭 시 ----------------------------------------------------------
 
 const logoutBtn = document.querySelector("#nav_logout_icon");
@@ -40,8 +39,6 @@ logoutBtn.addEventListener("click", () => {
   logout();
   //혬님.. 무슨html을 비워야했을까료...
 });
-
-
 
 //  회원가입 관련 로직 --------------------------------------------------------
 
@@ -52,7 +49,7 @@ function openSignupModal() {
   signupMd.classList.remove("none");
 
   const signup_name_input = document.querySelector("#signup_name");
-// 혹시...오타인가용
+  // 혹시...오타인가용
   const lsignup_email_input = document.querySelector("#signup_email");
   const signup_pw_input = document.querySelector("#signup_pw");
 
@@ -86,3 +83,9 @@ export function createModal(text) {
     modalDiv.style.display = "none";
   }, 2500);
 }
+
+// 네브 바로가기
+const textLogo = document.querySelector("#nav_text_logo");
+textLogo.addEventListener("click", () => {
+  location.reload();
+});
