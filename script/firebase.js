@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app";
+import { createModal } from "./app.js";
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -17,7 +18,7 @@ import {
   getDoc,
   getDocs,
 } from "firebase/firestore";
-import { createModal } from "./app.js";
+
 const firebaseConfig = {
   apiKey: "AIzaSyBquOi8RjipStQUXrQiKAxo1kfhNELRSQo",
   authDomain: "todo-nado.firebaseapp.com",
@@ -231,7 +232,7 @@ export async function updateTodo(inputText) {
     {
       text: inputText,
       time: new Date(),
-    }
+    },
   );
   console.log("Document written with ID: ", test.id);
   getDocument(String(auth.currentUser.uid));
