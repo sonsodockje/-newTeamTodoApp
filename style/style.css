@@ -6,4 +6,632 @@
 
 :root {
   --mainBlack: #000000;
+  --mainWhite: #ffffff;
+  --mainGray: #514f4f;
+  --pointRed: #ff6a6a;
+  --backColor: #3d4353;
+  --shadowGray: #252525;
+  --shadowGary2: #d9d9d9;
+  --shadowRed: #9c4f4f;
+  --inputGray: #f1f1f1;
+  --focusGray: #d5e6e1;
+  --listRed: #ffe4d7;
+}
+
+button {
+  cursor: pointer;
+}
+.createMoadl {
+  background-color: #282727;
+  color: #f74f4f;
+  padding: 20px 10px;
+  font-size: 14px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  border-radius: 0.2rem;
+}
+/* 배경색지정 */
+html {
+  background-color: var(--backColor);
+}
+
+.exit {
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+#exit {
+  background-color: transparent;
+  color: var(--pointRed);
+}
+
+/* 투두카드와 로그인,프로필 묶음 */
+.container {
+  position: relative;
+  top: -35px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.main-wrap {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.nav-bar {
+  color: var(--mainWhite);
+  padding: 10px;
+  position: fixed;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 18px;
+  cursor: default;
+}
+.icon-bar > span {
+  cursor: pointer;
+}
+
+/* 투두카드 설정 */
+.todo-card-wrap {
+  background-color: var(--mainWhite);
+  border-radius: 28px;
+  height: 320px;
+  width: 300px;
+  position: relative;
+  box-shadow: 2px 3px 1px 0px var(--shadowGray);
+}
+.todo-card-header {
+  background-color: var(--pointRed);
+  height: 50px;
+  border-radius: 27.5px 27.5px 0 0;
+  text-align: justify;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 19px;
+  color: var(--mainWhite);
+  cursor: default;
+  /* 접히는 디자인을 todo-card-header에서 설정한다면 필요할 것 같아서 주석으로 달아뒀습니다. */
+  /* border-radius: 25px; */
+  /* box-shadow: 2px 3px 1px 0px var(--shadowGray); */
+}
+.todo-card-title {
+  margin-left: 30px;
+}
+.open_btn,
+.opened_btn {
+  margin-right: 22px;
+  background-color: transparent;
+  border: none;
+  color: var(--mainWhite);
+  transition: all ease 200ms;
+}
+.opened_btn:active,
+.open_btn:active {
+  margin-top: 3px;
+}
+
+.todo-card-todolist {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5px;
+}
+ul {
+  list-style: none;
+  color: var(--mainGray);
+  cursor: default;
+}
+.todo-card-todolist li {
+  display: flex;
+  align-items: center;
+  background-color: var(--listRed);
+  border-radius: 12px;
+  padding: 5px;
+  width: 260px;
+  height: 40px;
+  margin: 9px;
+  box-shadow: 1px 2px 1px 0px var(--shadowGary2);
+}
+.todo-card-todolist-btn {
+  border: none;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  margin: 3px 10px 3px 3px;
+}
+
+.todo-card-input-area {
+  position: absolute;
+  bottom: 18px;
+  left: 0;
+  right: 0;
+  width: 100%;
+  margin: auto;
+  text-align: center;
+}
+input {
+  height: 35px;
+  width: 220px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--inputGray);
+  padding: 13px;
+  font-size: 13.5px;
+}
+input:focus {
+  outline: none;
+  background-color: var(--focusGray);
+}
+.todo_send {
+  height: 35px;
+  width: 35px;
+  background-color: var(--pointRed);
+  border: none;
+  border-radius: 5px;
+  color: var(--mainWhite);
+  transition: all ease 200ms;
+}
+.todo_send:active {
+  box-shadow: inset 2px 2px 2px 0px var(--shadowRed);
+}
+
+/* 접힌화면 */
+.todo-card-header-close {
+  background-color: var(--pointRed);
+  height: 50px;
+  border-radius: 25px;
+  text-align: justify;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 19px;
+  color: var(--mainWhite);
+  cursor: default;
+  box-shadow: 2px 3px 1px 0px var(--shadowGray);
+}
+
+/* 프로필*/
+.user-wrap-login {
+  position: fixed;
+  z-index: 4;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+
+  background-color: var(--mainWhite);
+  border-radius: 28px;
+  height: 190px;
+  width: 230px;
+  margin: 20px;
+  box-shadow: 2px 3px 1px 0px var(--shadowGray);
+}
+.exit {
+  right: 5px;
+  top: 5px;
+}
+.user-name {
+  font-weight: bold;
+  color: var(--mainGray);
+  cursor: default;
+}
+.user-profile-img {
+  background-color: #eeeeee;
+  width: 75px;
+  height: 75px;
+  border-radius: 36px;
+  margin: 2px 0 10px 0;
+
+  font-size: 10px;
+  line-height: 75px;
+}
+.user-buttons {
+  display: flex;
+  align-items: center;
+}
+.user-info-edit-btn {
+  background-color: var(--pointRed);
+  border: none;
+  height: 35px;
+  width: 70px;
+  border-radius: 5px;
+  margin-right: 5px;
+  color: var(--mainWhite);
+  transition: all ease 200ms;
+}
+.user-wrap-login span {
+  background-color: var(--pointRed);
+  height: 35px;
+  width: 35px;
+  border-radius: 5px;
+  padding: 5px;
+  color: var(--mainWhite);
+  transition: all ease 200ms;
+  cursor: pointer;
+}
+.user-info-edit-btn:active,
+#user-info-logout-btn:active {
+  box-shadow: inset 2px 2px 2px 0px var(--shadowRed);
+}
+
+/* 프로필수정창 */
+/* .edit-profile{
+  position: fixed;
+  z-index: 4;
+  top: 50%; 
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  
+  background-color: var(--mainWhite);
+  border-radius: 28px;
+  height: 320px;
+  width: 230px;
+  margin: 20px;
+  box-shadow: 2px 3px 1px 0px var(--shadowGray);
+}
+  .edit-profile-name{
+    color: var(--mainGray);
+  }
+  .edit-profile-email{
+    color: var(--mainGray);
+    margin-bottom: 18px;
+    font-size: 13px;
+  }
+  .user-name{
+    font-weight: bold;
+    color: var(--mainGray);
+    cursor: default;
+  }
+  #edit-img-btn{
+    background-color: transparent;
+    color: var(--pointRed);
+    border: none;
+
+  }
+  .edit-profile-img{
+    background-color: #eeeeee;
+    width: 75px;
+    height: 75px;
+    border-radius: 36px;
+ 
+   margin: 2px 0 3px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .edit-name, .edit-paswrd{
+    display: flex;
+    margin-bottom: 5px;
+  }
+  .edit-profile input{
+    width: 130px;
+    height: 30px;
+    margin-right: 3px;
+  }
+  .edit_name_btn, .edit_paswrd_btn{
+    background-color: var(--pointRed);
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 8px;
+  }
+  .edit_name_btn:active, .edit_paswrd_btn:active{
+    box-shadow: inset 2px 2px 2px 0px var(--shadowRed);
+  } */
+
+/* 로그아웃 시 보여지는 화면 오른쪽 로고창 */
+.user-wrap-logout {
+  background-color: var(--mainWhite);
+  border-radius: 28px;
+  height: 190px;
+  width: 230px;
+  position: relative;
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 2px 3px 1px 0px var(--shadowGray);
+}
+
+.open_login_md,
+.open_signup_md {
+  background-color: var(--pointRed);
+  border: none;
+  height: 35px;
+  width: 70px;
+  border-radius: 5px;
+  margin: 0 3px;
+  color: var(--mainWhite);
+  transition: all ease 200ms;
+}
+.open_login_md:active,
+.open_signup_md:active {
+  box-shadow: inset 2px 2px 2px 0px var(--shadowRed);
+}
+
+.logo {
+  border-radius: 40px;
+  margin-bottom: 20px;
+}
+
+/*로그인창*/
+.login-wrap {
+  position: fixed;
+  z-index: 4;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+
+  height: 420px;
+  width: 300px;
+  border-radius: 30px;
+
+  background-color: var(--mainWhite);
+  box-shadow: 2px 3px 3px 0px #252525;
+}
+.login-wrap-header {
+  top: 40px;
+}
+
+h1 {
+  margin: 40px 0 35px 0;
+  cursor: default;
+}
+.login-wrap-header p {
+  color: var(--mainGray);
+  margin-bottom: 10px;
+  cursor: default;
+}
+
+.login-wrap-input-area {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.login-wrap-input-area input {
+  height: 37px;
+  margin-bottom: 10px;
+}
+.login-wrap-footer {
+  display: flex;
+  flex-direction: row;
+  width: 220px;
+  justify-content: space-between;
+  position: absolute;
+  bottom: 20px;
+  /*외때문인지 가운데로 안가서 지저분해졌습니다..*/
+  left: 36px;
+  font-size: 11px;
+  color: #9b9b9b;
+}
+.login-wrap-footer p {
+  cursor: pointer;
+}
+
+.login_btn {
+  background-color: var(--pointRed);
+  border: none;
+  height: 35px;
+  width: 70px;
+  border-radius: 5px;
+  margin-top: 10px;
+  color: var(--mainWhite);
+  transition: all ease 200ms;
+}
+.login_btn:active {
+  box-shadow: inset 2px 2px 2px 0px var(--shadowRed);
+}
+
+/*회원가입창*/
+
+.signup-wrap {
+  position: fixed;
+  z-index: 4;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+
+  height: 380px;
+  width: 300px;
+  border-radius: 28px;
+
+  background-color: var(--mainWhite);
+  box-shadow: 2px 3px 3px 0px #252525;
+}
+.signup-wrap-header {
+  top: 40px;
+}
+
+h1 {
+  margin: 40px 0 35px 0;
+}
+.signup-wrap-header p {
+  color: var(--mainGray);
+  margin-bottom: 10px;
+}
+
+.signup-wrap-input-area {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.signup-wrap-input-area input {
+  height: 37px;
+  margin-bottom: 10px;
+}
+
+.signup_btn {
+  background-color: var(--pointRed);
+  border: none;
+  height: 35px;
+  width: 85px;
+  border-radius: 5px;
+  margin-top: 20px;
+  color: var(--mainWhite);
+  transition: all ease 200ms;
+}
+.signup_btn:active {
+  box-shadow: inset 2px 2px 2px 0px var(--shadowRed);
+}
+
+/* 목록수정창 */
+/* .list-management{
+  position: fixed;
+  z-index: 4;
+  top: 50%;top: 50%; 
+  left: 50%;
+  transform: translate(-50%, -50%);
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+
+  background-color: var(--mainWhite);
+  width: 330px;
+  height: 290px;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow: 2px 3px 3px 0px #252525;
+}
+.management-title{
+  font-size: 19px;
+  font-weight: bolder;
+  color: var(--mainGray);
+}
+
+.edit-list{
+  color: var(--mainGray);
+  background-color: var(--focusGray);
+  width: 260px;
+  height: 195px;
+  border-radius: 20px;
+  margin-top: 3px;
+  padding: 20px;
+  font-size: 13px;
+
+  overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--mainWhite) transparent;
+}
+.edit-list-each{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  margin-bottom: 15px;
+}
+.delete-btn{
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  color: var(--mainGray);
+  width: 13px;
+  height: 13px;
+  margin-left: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+}
+
+
+
+.edit-list-input-area{
+  margin-top: 8px;
+  display: flex;
+
+}
+#edit_list_input{
+  border: none;
+  height: 30px;
+  width: 200px;
+  border-radius: 8px;
+  background-color: var(--inputGray);
+  padding: 12px;
+  color: var(--mainGray);
+  margin-right: 5px;
+}
+#edit_list_input:focus{
+  outline: none;
+  
+}
+.list_send_btn{
+  background-color: var(--pointRed);
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 8px;
+}
+.list_send_btn:active{
+  box-shadow: inset 2px 2px 2px 0px var(--shadowRed);
+} */
+
+/************************** 발표용 버그 임시 수정 **************************/
+.bug {
+  position: absolute;
+  bottom: 0;
+  right: 40px;
+  display: flex;
+
+  gap: 5px;
+  align-items: center;
+}
+.bug input {
+  height: 48px;
+  width: 320px;
+}
+.bug button {
+  height: 50px;
+  width: 50px;
+  background-color: var(--pointRed);
+  border: none;
+  border-radius: 5px;
+  color: var(--mainWhite);
+  cursor: pointer;
+}
+.todo-card-todolist ul {
+  height: 250px;
+  overflow: scroll;
+}
+#nav_text_logo {
+  cursor: pointer;
+}
+/******************************** none ********************************/
+.none {
+  display: none;
 }

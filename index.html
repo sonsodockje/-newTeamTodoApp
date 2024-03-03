@@ -6,84 +6,267 @@
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Todo-Nado | 투두네이도</title>
-  <link rel="stylesheet" href="./style/style.css">
+  <link rel="stylesheet" href="/style/style.css">
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 </head>
 
 <body>
   <div class="container">
-
-    <!-- 레이아웃의 왼쪽 -->
-    <div class="todos-wrap">
-      <!-- 하나의 주제를 가진 투두 카드 -->
-      <div class="todo-card-wrap">
-        <div class="todo-card-header">
-          <span>오늘 할 일</span>
-          <button class="opened_btn">
+    <!-- 모달추가하기 위한 나브바 -->
+    <nav class="nav-bar">
+      <p id="nav_text_logo">ToDoNado</p>
+      <!-- 로그인후 : 우측 상단 아이콘 모음 -->
+      <div class="icon-bar none">
+        <span class="material-symbols-outlined">
+          add
+        </span>
+        <span class="material-symbols-outlined">
+          person
+        </span>
+        <span class="material-symbols-outlined" id="nav_logout_icon">
+          logout
+        </span>
+      </div>
+    </nav>
+    <div class="bug none">
+      <input type="text" placeholder="버그 수정하기 ..." id="bug_input" /> <button id="bug_send">전송</button>
+    </div>
+    <div class="main-wrap">
+      <!-- 레이아웃의 왼쪽 -->
+      <div class="todos-wrap">
+        <!-- 하나의 주제를 가진 투두 카드 -->
+        <div class="todo-card-wrap default-card">
+          <div class="todo-card-header">
+            <!-- 클래스명 추가 -->
+            <span class="todo-card-title">오늘 할 일</span>
+            <button class="opened_btn">
+              <span class="material-symbols-outlined">
+                menu
+              </span>
+            </button>
+          </div>
+          <div class="todo-card-todolist">
+            <ul>
+              <li>
+                <button class="todo-card-todolist-btn false">
+                  <span class="material-symbols-outlined">
+                    radio_button_unchecked
+                  </span>
+                </button>
+                <span>저녁 먹기</span>
+              </li>
+              <li>
+                <button class="todo-card-todolist-btn true">
+                  <span class="material-symbols-outlined">
+                    expand_circle_down
+                  </span>
+                </button>
+                <span>아침 먹기</span>
+              </li>
+            </ul>
+          </div>
+          <div class="todo-card-input-area">
+            <input type="text" id="todo_input" placeholder=" 로그인을 해주세요.">
+            <button class="todo_send" id="todo_send" disabled>저장</button>
+          </div>
+        </div>
+        <!-- 하나의 주제를 가진 투두 카드, 인데 접힌 -->
+        <!-- 모양지정 때문에 클래스명을 바꿔봅니다.!  -->
+        <!-- <div class="todo-card-header-close hidden">
+          
+          <span class="todo-card-title">리액트 공부</span>
+          <button class="open_btn">
             <span class="material-symbols-outlined">
-              menu
+              arrow_drop_down
             </span>
           </button>
-        </div>
-        <div class="todo-card-todolist">
-          <ul>
-            <li>
-              <button class="todo-card-todolist-btn false">
-                <span class="material-symbols-outlined">
-                  radio_button_unchecked
-                </span>
-              </button>
-              <span>저녁 먹기</span>
-            </li>
-            <li>
-              <button class="todo-card-todolist-btn true">
-                <span class="material-symbols-outlined">
-                  expand_circle_down
-                </span>
-              </button>
-              <span>아침 먹기</span>
-            </li>
-          </ul>
-        </div>
-        <div class="todo-card-input-area">
-          <input type="text" id="todo_input">
-          <button class="todo_send" id="todo_send">저장</button>
-        </div>
+        </div> -->
       </div>
-      <!-- 하나의 주제를 가진 투두 카드, 인데 접힌 -->
-      <div class="todo-card-header hidden">
-        <span>리액트 공부</span>
-        <button class="open_btn">
-          <span class="material-symbols-outlined">
-            arrow_drop_down
+      <!-- </div> 여기에 있던 닫는 디브를 로그아웃 상태시 보여질 화면밑으로 보냄-->
+
+      <!-- 레이아웃의 오른쪽 -->
+      <!-- 로그인 상태시 보여질 화면 -->
+      <!-- 얘네는 모달로 -->
+
+      <!-- 프로필 -->
+      <div class="user-wrap-login none">
+        <button class="exit">
+          <span id="exit" class="material-symbols-outlined">
+            close
           </span>
         </button>
+        <div class="user-name">
+          <p>홍길동</p>
+        </div>
+        <div class="user-profile-img">
+          <img src="" alt="프로필사진">
+        </div>
+        <div class="user-buttons">
+          <!-- class 추가 -->
+          <button class="user-info-edit-btn" id="user-info-edit-btn">
+            정보수정
+          </button>
+          <span id="user-info-logout-btn" class="material-symbols-outlined">
+            logout
+          </span>
+        </div>
+      </div>
+
+      <!-- 프로필 수정 창 -->
+      <div class="edit-profile none">
+        <button class="exit">
+          <span id="exit" class="material-symbols-outlined">
+            close
+          </span>
+        </button>
+        <div class="user-name">
+          <p class="edit-profile-name">홍길동</p>
+        </div>
+        <div class="edit-profile-img">
+          <button id="edit-img-btn" class="material-symbols-outlined">
+            photo_camera
+          </button>
+          <img src="">
+        </div>
+        <p class="edit-profile-email">hong@gmail.com</p>
+        <div class="edit-name">
+          <!-- 이름표시 -->
+          <input type="text" id="edit_name_input" placeholder="홍길동">
+          <button class="edit_name_btn" id="edit_name_btn"></button>
+        </div>
+        <div class="edit-paswrd">
+          <!-- 비밀번호 표시 -->
+          <input type="text" id="edit_paswrd_input" placeholder="123456">
+          <button class="edit_paswrd_btn" id="edit_paswrd_btn"></button>
+        </div>
+      </div>
+
+
+      <!-- 로그아웃 상태시 보여질 화면 -->
+      <div class="user-wrap-logout">
+        <img class="logo" src="./img/logo.png" alt="로고">
+        <div class="user-buttons">
+          <button class="open_login_md" id="open_login_md">로그인</button>
+          <button class="open_signup_md" id="open_signup_md">회원가입</button>
+        </div>
       </div>
     </div>
+
+    <!-- 여기로 옮겼어요 67번째줄의 </div> -->
   </div>
 
-  <!-- 레이아웃의 오른쪽 -->
-  <div class="user-wrap">
-    <div class="user-name">
-      <p>홍길동</p>
-    </div>
-    <div class="user-profile-img">
-      <img src="" alt="프로필사진">
-    </div>
-    <div class="user-buttons">
-      <button id="user-info-edit-btn">
-        정보수정
-      </button>
-      <span class="material-symbols-outlined">
-        logout
+
+  <!-- 목록관리 -->
+  <div class="list-management none">
+    <button class="exit">
+      <span id="exit" class="material-symbols-outlined">
+        close
       </span>
+    </button>
+    <p class="management-title">목록관리</p>
+    <ul class="edit-list">
+      <li class="edit-list-each">
+        <p>오늘의 할 일</p>
+        <button class="delete-btn">
+          <!-- <span class="material-symbols-outlined">
+            close
+          </span> -->
+          <span>x</span>
+        </button>
+      </li>
+      <li class="edit-list-each">
+        <p>오늘의 할 일</p>
+        <button class="delete-btn">
+          <span>x</span>
+        </button>
+      </li>
+      <li class="edit-list-each">
+        <p>오늘의 할 일</p>
+        <button class="delete-btn">
+          <span>x</span>
+        </button>
+      </li>
+      <li class="edit-list-each">
+        <p>오늘의 할 일</p>
+        <button class="delete-btn">
+          <span>x</span>
+        </button>
+      </li>
+      <li class="edit-list-each">
+        <p>오늘의 할 일</p>
+        <button class="delete-btn">
+          <span>x</span>
+        </button>
+      </li>
+      <li class="edit-list-each">
+        <p>오늘의 할 일</p>
+        <button class="delete-btn">
+          <span>x</span>
+        </button>
+      </li>
+      <li class="edit-list-each">
+        <p>오늘의 할 일</p>
+        <button class="delete-btn">
+          <span>x</span>
+        </button>
+      </li>
+    </ul>
+    <div class="edit-list-input-area">
+      <input type="text" id="edit_list_input">
+      <button class="list_send_btn" id="list_send_btn"></button>
     </div>
   </div>
 
 
+  <!-- 로그인창 -->
+  <div class="login-wrap none">
+    <button class="exit" id="modal_exit">
+      <span class="material-symbols-outlined">
+        close
+      </span>
+    </button>
+    <div class="login-wrap-header">
+      <h1>ToDoNado</h1>
+      <p>로그인</p>
+    </div>
+    <div class="login-wrap-input-area">
+      <input type="email" placeholder="email" id="login_email">
+      <input type="password" placeholder="password" id="login_pw">
+      <button class="login_btn" id="login_btn">로그인</button>
+    </div>
+    <div class="login-wrap-footer">
+      <p>아이디찾기</p>
+      <p>비밀번호 찾기</p>
+      <p id="to_signup_from_modal">회원가입</p>
+    </div>
+  </div>
 
-  <script type="module" src="./script/counter.js"></script>
+
+  <!-- 회원가입창 -->
+  <div class="signup-wrap none">
+    <button class="exit" id="signup_modal_exit">
+      <span id="exit" class="material-symbols-outlined">
+        close
+      </span>
+    </button>
+    <div class="signup-wrap-header">
+      <h1>ToDoNado</h1>
+      <p>회원가입</p>
+    </div>
+    <div class="signup-wrap-input-area">
+      <input type="text" id="signup_name" placeholder="이름">
+      <input type="email" id="signup_email" placeholder="email">
+      <input type="password" id="signup_pw" placeholder="password">
+      <button class="signup_btn" id="signup_btn">회원가입</button>
+    </div>
+
+
+
+
+  </div>
+
+
   <script type="module" src="./script/firebase.js"></script>
   <script type="module" src="./script/app.js"></script>
 </body>
